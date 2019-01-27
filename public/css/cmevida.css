@@ -1,0 +1,17 @@
+.backgroundParaListagensShow {
+	background-color: #eee;
+	padding: 10px;
+	margin-bottom: 10px;
+}
+
+.carrosListadosNoShowMembros {
+	background-color: yellow;
+	padding: 10px;
+	margin-bottom: 10px;
+}
+
+.tituloImagensCadastradasShowMembros {
+	border-bottom: 1px solid #f4f4f4;
+	margin-bottom: 20px;
+	padding: 0 20px 10px;
+}
