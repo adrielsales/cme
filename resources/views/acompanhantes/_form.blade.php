@@ -28,6 +28,6 @@
 	<div class="radio">
 	    <label>{!! Form::radio('ativo', '1', true) !!} Ativo </label>
 	    <label>{!! Form::radio('ativo', '0') !!} Inativo</label>
-	</div>
+    </div>
 
 {!! Html::closeFormGroup() !!}

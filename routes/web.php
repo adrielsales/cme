@@ -147,3 +147,10 @@ Route::group(['middleware' => 'auth'], function(){
 	Route::resource('messages', 'MessageController', ['except' => 'update']);
 	Route::get('messages/{idMessage}/mudaEstadoMessage', 'MessageController@mudaEstadoAtivo');
 });
+
+//NoticiaController
+Route::group(['middleware' => 'auth'], function(){
+	// Route::resource('noticias', 'NoticiaController', ['except' => 'show']);
+	Route::resource('noticias', 'NoticiaController');
+	// Route::get('escolas/{idEscola}/mudaEstado', 'EscolaController@mudaEstadoAtivo');
+});

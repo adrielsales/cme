@@ -116,7 +116,8 @@ class AcompanhanteController extends Controller
 			$acompanhante = Acompanhante::find($id);
 
 			if(!ManipulaImagem::deletaImagemNoServidor($acompanhante->alvara_SEMOB)){
-					$request->session()->flash('message', 'Arquivo apagado! Porém pode ter ocorrido problemas ao tentar excluir a Imagem no servidor ou não havia imagem correspondente ao registro selecionado.');
+                    $request->session()->flash('message', 'Arquivo apagado! Porém pode ter ocorrido problemas ao 
+                    tentar excluir a Imagem no servidor ou não havia imagem correspondente ao registro selecionado.');
 			} else {
 					$request->session()->flash('message', 'Excluído com sucesso!');
 			}
