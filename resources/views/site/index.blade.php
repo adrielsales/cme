@@ -2,7 +2,8 @@
 
 @section('content')
 
-	@include('layouts.site._carrousel')
+	@include('layouts.site._noticias')
+	{{-- @include('layouts.site._carrousel') --}}
 	@include('layouts.site._escolas')
 	@include('layouts.site._van-legalizada')
 	@include('layouts.site._orgaos')

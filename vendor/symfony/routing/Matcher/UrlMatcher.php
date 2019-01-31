@@ -11,14 +11,15 @@
 
 namespace Symfony\Component\Routing\Matcher;
 
+use Symfony\Component\ExpressionLanguage\ExpressionFunctionProviderInterface;
+use Symfony\Component\ExpressionLanguage\ExpressionLanguage;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Exception\MethodNotAllowedException;
+use Symfony\Component\Routing\Exception\NoConfigurationException;
 use Symfony\Component\Routing\Exception\ResourceNotFoundException;
-use Symfony\Component\Routing\RouteCollection;
 use Symfony\Component\Routing\RequestContext;
 use Symfony\Component\Routing\Route;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\ExpressionLanguage\ExpressionLanguage;
-use Symfony\Component\ExpressionLanguage\ExpressionFunctionProviderInterface;
+use Symfony\Component\Routing\RouteCollection;
 
 /**
  * UrlMatcher matches URL based on a set of routes.
@@ -75,7 +76,11 @@ class UrlMatcher implements UrlMatcherInterface, RequestMatcherInterface
             return $ret;
         }
 
-        throw 0 < count($this->allow)
+        if ('/' === $pathinfo && !$this->allow) {
+            throw new NoConfigurationException();
+        }
+
+        throw 0 < \count($this->allow)
             ? new MethodNotAllowedException(array_unique($this->allow))
             : new ResourceNotFoundException(sprintf('No routes found for "%s".', $pathinfo));
     }
@@ -107,20 +112,50 @@ class UrlMatcher implements UrlMatcherInterface, RequestMatcherInterface
      *
      * @return array An array of parameters
      *
+     * @throws NoConfigurationException  If no routing configuration could be found
      * @throws ResourceNotFoundException If the resource could not be found
      * @throws MethodNotAllowedException If the resource was found but the request method is not allowed
      */
     protected function matchCollection($pathinfo, RouteCollection $routes)
     {
+        // HEAD and GET are equivalent as per RFC
+        if ('HEAD' === $method = $this->context->getMethod()) {
+            $method = 'GET';
+        }
+        $supportsTrailingSlash = '/' !== $pathinfo && '' !== $pathinfo && $this instanceof RedirectableUrlMatcherInterface;
+
         foreach ($routes as $name => $route) {
             $compiledRoute = $route->compile();
+            $staticPrefix = $compiledRoute->getStaticPrefix();
+            $requiredMethods = $route->getMethods();
 
             // check the static prefix of the URL first. Only use the more expensive preg_match when it matches
-            if ('' !== $compiledRoute->getStaticPrefix() && 0 !== strpos($pathinfo, $compiledRoute->getStaticPrefix())) {
+            if ('' === $staticPrefix || 0 === strpos($pathinfo, $staticPrefix)) {
+                // no-op
+            } elseif (!$supportsTrailingSlash || ($requiredMethods && !\in_array('GET', $requiredMethods)) || 'GET' !== $method) {
+                continue;
+            } elseif ('/' === substr($staticPrefix, -1) && substr($staticPrefix, 0, -1) === $pathinfo) {
+                return $this->allow = array();
+            } else {
+                continue;
+            }
+            $regex = $compiledRoute->getRegex();
+
+            if ($supportsTrailingSlash && $pos = strpos($regex, '/$')) {
+                $regex = substr($regex, 0, $pos).'/?$'.substr($regex, $pos + 2);
+                $hasTrailingSlash = true;
+            } else {
+                $hasTrailingSlash = false;
+            }
+
+            if (!preg_match($regex, $pathinfo, $matches)) {
                 continue;
             }
 
-            if (!preg_match($compiledRoute->getRegex(), $pathinfo, $matches)) {
+            if ($hasTrailingSlash && '/' !== substr($pathinfo, -1)) {
+                if ((!$requiredMethods || \in_array('GET', $requiredMethods)) && 'GET' === $method) {
+                    return $this->allow = array();
+                }
                 continue;
             }
 
@@ -129,32 +164,27 @@ class UrlMatcher implements UrlMatcherInterface, RequestMatcherInterface
                 continue;
             }
 
-            // check HTTP method requirement
-            if ($requiredMethods = $route->getMethods()) {
-                // HEAD and GET are equivalent as per RFC
-                if ('HEAD' === $method = $this->context->getMethod()) {
-                    $method = 'GET';
-                }
-
-                if (!in_array($method, $requiredMethods)) {
-                    $this->allow = array_merge($this->allow, $requiredMethods);
-
-                    continue;
-                }
-            }
-
             $status = $this->handleRouteRequirements($pathinfo, $name, $route);
-
-            if (self::ROUTE_MATCH === $status[0]) {
-                return $status[1];
-            }
 
             if (self::REQUIREMENT_MISMATCH === $status[0]) {
                 continue;
             }
 
-            return $this->getAttributes($route, $name, array_replace($matches, $hostMatches));
+            // check HTTP method requirement
+            if ($requiredMethods) {
+                if (!\in_array($method, $requiredMethods)) {
+                    if (self::REQUIREMENT_MATCH === $status[0]) {
+                        $this->allow = array_merge($this->allow, $requiredMethods);
+                    }
+
+                    continue;
+                }
+            }
+
+            return $this->getAttributes($route, $name, array_replace($matches, $hostMatches, isset($status[1]) ? $status[1] : array()));
         }
+
+        return array();
     }
 
     /**
@@ -211,7 +241,7 @@ class UrlMatcher implements UrlMatcherInterface, RequestMatcherInterface
     protected function mergeDefaults($params, $defaults)
     {
         foreach ($params as $key => $value) {
-            if (!is_int($key)) {
+            if (!\is_int($key)) {
                 $defaults[$key] = $value;
             }
         }

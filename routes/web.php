@@ -148,7 +148,7 @@ Route::group(['middleware' => 'auth'], function(){
 	Route::get('messages/{idMessage}/mudaEstadoMessage', 'MessageController@mudaEstadoAtivo');
 });
 
-//NoticiaController
+//NoticiaController ********************************************************************* AQUI
 Route::group(['middleware' => 'auth'], function(){
 	// Route::resource('noticias', 'NoticiaController', ['except' => 'show']);
 	Route::resource('noticias', 'NoticiaController');

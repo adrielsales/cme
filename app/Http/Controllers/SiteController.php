@@ -22,7 +22,8 @@ class SiteController extends Controller
 					    	->orderBy('id','asc')->get();
 
     	$patrocinadores_globais = Banner::where('ativo','=', 1)->where('tipo','=','Patrocinador')->orderBy('posicao','asc')->get();
-    	return view('site.index', compact('banners', 'escolas', 'patrocinadores_globais', 'mensagens'));
+        return view('site.index', compact('banners', 'escolas', 'patrocinadores_globais', 'mensagens'));
+        // phpinfo();
     }
 
     public function contactForm()

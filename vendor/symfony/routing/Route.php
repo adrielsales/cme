@@ -29,11 +29,13 @@ class Route implements \Serializable
     private $condition = '';
 
     /**
-     * @var null|CompiledRoute
+     * @var CompiledRoute|null
      */
     private $compiled;
 
     /**
+     * Constructor.
+     *
      * Available options:
      *
      *  * compiler_class: A class name able to compile this route instance (RouteCompiler by default)
@@ -194,7 +196,7 @@ class Route implements \Serializable
      */
     public function hasScheme($scheme)
     {
-        return in_array(strtolower($scheme), $this->schemes, true);
+        return \in_array(strtolower($scheme), $this->schemes, true);
     }
 
     /**
@@ -535,7 +537,7 @@ class Route implements \Serializable
 
     private function sanitizeRequirement($key, $regex)
     {
-        if (!is_string($regex)) {
+        if (!\is_string($regex)) {
             throw new \InvalidArgumentException(sprintf('Routing requirement for "%s" must be a string.', $key));
         }
 
