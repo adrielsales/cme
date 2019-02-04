@@ -15,6 +15,30 @@ h1, h2, h3, h4, h5, h6 {
 	/*color: #757575;*/
 }
 
+/*Notícias*/
+
+.noticias-row-wrapper {
+	margin-top: 20px;
+}
+
+#noticia-destaque {
+	max-height: 500px;
+}
+
+@media screen and (min-width: 320px) and (max-width: 767px){
+    .noticias-row-wrapper {
+		margin-top: 3rem;
+	}
+}
+
+.slides-subtitulos {
+	font-weight: 900;
+	line-height: 32px;
+}
+
+
+
+
 /*contatos*/
 
 .titulo-contato h4 {
@@ -73,7 +97,6 @@ h1, h2, h3, h4, h5, h6 {
 		background-size: 70px;
 	}
 }
-
 
 .card-panel-espacamento {
 	padding: 10px 0;
