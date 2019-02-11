@@ -28,10 +28,12 @@ Route::get('/', 'SiteController@index');
 Route::get('contato', 'SiteController@contactForm');
 Route::post('message', 'SiteController@storeMessage');
 Route::get('listaDeEscolas', 'SiteController@listarEscolas');
+Route::get('listaDeNoticias', 'SiteController@listarDeNoticias');
 Route::get('{idEscola}/membros-da-escola', 'SiteController@membrosDaEscola')->name('sites.membros-da-escola');
 Route::get('{idMembro}/detalhes-do-membro', 'SiteController@detalhesDoMembro')->name('sites.detalhes-do-membro');
 Route::get('equipe', 'SiteController@equipe')->name('sites.equipe');
 Route::get('sobre', 'SiteController@sobre')->name('sites.sobre');
+Route::get('{idNoticia}/noticia', 'SiteController@noticia')->name('sites.show-noticia');
 
 
 
@@ -152,5 +154,6 @@ Route::group(['middleware' => 'auth'], function(){
 Route::group(['middleware' => 'auth'], function(){
 	// Route::resource('noticias', 'NoticiaController', ['except' => 'show']);
 	Route::resource('noticias', 'NoticiaController');
-	// Route::get('escolas/{idEscola}/mudaEstado', 'EscolaController@mudaEstadoAtivo');
+	Route::get('noticias/{idnoticia}/mudaEstadoNoticia', 'NoticiaController@mudaEstadoAtivo');
+	Route::get('noticias/{idnoticia}/mudaEstadoDestaque', 'NoticiaController@mudaEstadoDestaque');
 });

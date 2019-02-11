@@ -132,7 +132,7 @@ class BannerController extends Controller
      */
     public function destroy(Request $request, Banner $banner)
     {
-        if(!ManipulaImagem::deletaImagemNoServidor($banner->logomarca)){
+        if(!ManipulaImagem::deletaImagemNoServidor($banner->imagem)){
             $request->session()->flash('message', 'Arquivo apagado! Porém pode ter ocorrido problemas ao tentar excluir a Imagem no servidor ou não havia imagem correspondente ao registro selecionado.');
         } else {
             $request->session()->flash('message', 'Excluído com sucesso!');

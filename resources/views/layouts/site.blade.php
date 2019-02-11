@@ -79,6 +79,7 @@
 					<li class="active"><a href="/sobre"><span class="black-text font-menu">Sobre</span></a></li>
 					<li><a href="/equipe"><span class="black-text font-menu">Equipe</span></a></li>
 					<li><a href="/contato"><span class="black-text font-menu">Contatos</span></a></li>
+					<li><a href="{{ url('/listaDeNoticias') }}"><span class="black-text font-menu">Notícias</span></a></li>
 				</ul>
 			</div>
 		</nav>

@@ -27,24 +27,6 @@
 					</ul>
 				</div>
 			</div>
-
-
-			{{-- @foreach($escolas as $escola)
-				<div class="col s6 m3">
-				<a href="{{ route('sites.membros-da-escola', ['id' => $escola->id]) }}">
-		          <div class="card grey lighten-4" style="height:200px; padding:8px;">
-		            <div class="card-image" style="overflow: hidden;">
-		              <img src="{{ asset($escola->logomarca) }}" style="max-width:100px; margin:0 auto;">
-		            </div>
-		            <div class="card-action center" style="padding:10px;">
-		              <!--<a href="{{ route('sites.membros-da-escola', ['id' => $escola->id]) }}" class="btn btn-floating pulse">
-									{{ count($escola->membros) }}</a>-->
-			          <span style="font-size:1rem; text-align:center;">{{ $escola->nome }}</span>
-		            </div>
-		          </div>
-		          </a>
-		        </div>
-			@endforeach --}}
 		</div>
 	</div>
 </div>

@@ -15,10 +15,10 @@ class CreateNoticiasTable extends Migration
     {
         Schema::create('noticias', function (Blueprint $table) {
             $table->increments('id');
-            $table->date('data_de_cadastro')->nullable();
+            $table->date('data_para_publicar_destaque')->nullable();
             $table->date('data_de_expiracao_destaque')->nullable();
             $table->text('titulo');
-            $table->text('descricao')->nullable();
+            $table->text('sub_titulo')->nullable();
             $table->text('texto');
             $table->text('capa')->nullable();
             $table->boolean("destaque")->default(0); 

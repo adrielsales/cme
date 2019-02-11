@@ -53,11 +53,12 @@
                         @else
                             <li><a href="{{url('/acompanhantes')}}">Acompanhantes</a></li>
                             <li><a href="{{url('/bairros')}}">Bairros</a></li>
+                            <li><a href="{{url('/banners')}}">Banners</a></li>
+                            <li><a href="{{url('/carros')}}">Carros</a></li>
                             <li><a href="{{url('/escolas')}}">Escolas</a></li>
                             <li><a href="{{url('/icons')}}">Icons</a></li>
                             <li><a href="{{url('/membros')}}">Membros</a></li>
-                            <li><a href="{{url('/carros')}}">Carros</a></li>
-                            <li><a href="{{url('/banners')}}">Banners</a></li>
+                            <li><a href="{{url('/noticias')}}">Notícias</a></li>
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">
                                     {{ Auth::user()->name }} <span class="caret"></span>
