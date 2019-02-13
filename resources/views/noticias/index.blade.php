@@ -38,7 +38,36 @@
                             </td>
                             <td>{{ $noticia->data_para_publicar_destaque }}</td>
                             <td>{{ $noticia->data_de_expiracao_destaque }}</td>
-                            <td><a href="#" target="_blank">view</a></td>
+
+                            <td>
+                                {{-- <a href="#" target="_blank">view</a> --}}
+                            <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal{{ $noticia->id }}">
+                                        ver
+                                </button>
+                                <!-- Modal -->
+                                <div class="modal fade" id="myModal{{ $noticia->id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                        <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                            <h4 class="modal-title" id="myModalLabel">{{ $noticia->titulo }}</h4>
+                                            <h5 class="modal-title" id="myModalLabel">{{ $noticia->sub_titulo }}</h5>
+                                            </div>
+                                            <div class="modal-body">
+                                                {!! $noticia->texto !!}
+                                            </div>
+                                            <div class="modal-footer">
+                                            <button type="button" class="btn btn-default btn-danger" data-dismiss="modal">Close</button>
+                                            <a href="{{ route('noticias.edit', ['noticia' => $noticia->id]) }}" class="btn btn-default">Editar</a>
+                                            {{-- <button type="button" class="btn btn-primary">Save changes</button> --}}
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </div>
+                                <!--/ Modal -->
+
+                            </td>
+
                             <td onclick="mudaEstadonoticia('{{$noticia->id}}');" id="alterarEstado_{{$noticia->id}}">
                                 {!! Html::iconeParaEstado($noticia->ativo) !!}
                                 <button class="btn btn-xs"> Mudar</button>
