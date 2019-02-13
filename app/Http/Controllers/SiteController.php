@@ -55,12 +55,7 @@ class SiteController extends Controller
 
     public function listarDeNoticias()
     {
-        $noticias = Noticia::where('ativo','=', 1)
-                                ->where([
-                                    ['destaque','=',1],
-                                    ['data_para_publicar_destaque', '<=', date('Y-m-d')],
-                                    ['data_de_expiracao_destaque', '>=', date('Y-m-d')]
-                                ])->orderBy('id','desc')->get(); 
+        $noticias = Noticia::where('ativo','=', 1)->orderBy('id','desc')->get(); 
 
         return view('site.noticias', compact('noticias'));
     }

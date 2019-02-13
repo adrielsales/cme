@@ -9,20 +9,16 @@
 		</div>
 		<div class="row">
 
-            <ul class="collection">
+            <ul class="collection" style="border: transparent;">
                 @foreach ($noticias as $noticia)
                     <a href="{{ route('sites.show-noticia', ['id' => $noticia->id]) }}">
-                    <li class="collection-item avatar transparent">
-                        <img src="{{ asset($noticia->capa) }}" alt="" class="circle">
-                        <span class="title">{{ $noticia->titulo }}</span>
-                        <span class="badge">{{ date('d/m/Y', strtotime($noticia->created_at)) }}</span>
-                        <p>{{ $noticia->sub_titulo }}</p>
+                        <li class="collection-item avatar transparent" style="border-bottom: #b2dfdb dashed 1px;">
+                            <img src="{{ asset($noticia->capa) }}" alt="" class="circle">
+                            <span class="title" style="color: black;">{{ $noticia->titulo }}</span>
+                            <span class="badge">{{ date('d/m/Y', strtotime($noticia->created_at)) }}</span>
+                            <p style="color: #666;">{{ $noticia->sub_titulo }}</p>
+                        </li>
                     </a>
-{{-- 
-                        <a href="{{ route('sites.show-noticia', ['id' => $noticia->id]) }}" class="secondary-content">
-                            <i class="material-icons">check</i>
-                        </a> --}}
-                    </li>
 
                 @endforeach
 

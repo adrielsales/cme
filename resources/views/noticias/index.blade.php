@@ -17,7 +17,7 @@
                     <th>Destaque</th>
                     <th>Data de Publicação</th>
                     <th>Saída de Destaque</th>
-                    <th>Pré-Visualizar</th>
+                    <th>Preview</th>
                     <th>Estado</th>
                     <th>Ações</th>
                 </tr>
