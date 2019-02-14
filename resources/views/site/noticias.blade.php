@@ -15,8 +15,9 @@
                         <li class="collection-item avatar transparent" style="border-bottom: #b2dfdb dashed 1px;">
                             <img src="{{ asset($noticia->capa) }}" alt="" class="circle">
                             <span class="title" style="color: black;">{{ $noticia->titulo }}</span>
-                            <span class="badge">{{ date('d/m/Y', strtotime($noticia->created_at)) }}</span>
+                            {{-- <span class="badge">{{ date('d/m/Y', strtotime($noticia->created_at)) }}</span> --}}
                             <p style="color: #666;">{{ $noticia->sub_titulo }}</p>
+                            <p style="font-style: italic; color: #666; font-size: 12px;">Publicada em {{ date('d/m/Y', strtotime($noticia->created_at)) }}</p>
                         </li>
                     </a>
 
