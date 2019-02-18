@@ -147,7 +147,8 @@ Route::group(['middleware' => 'auth'], function(){
 	Route::resource('messages', 'MessageController', ['except' => 'show']);
 	Route::resource('messages', 'MessageController', ['except' => 'edit']);
 	Route::resource('messages', 'MessageController', ['except' => 'update']);
-	Route::get('messages/{idMessage}/mudaEstadoMessage', 'MessageController@mudaEstadoAtivo');
+	Route::get('messages/{idMessage}/mudaEstadoAtivo', 'MessageController@mudaEstadoAtivo');
+	Route::get('messages/{idMessage}/mudaEstadoPublicado', 'MessageController@mudaEstadoPublicado');
 });
 
 //NoticiaController ********************************************************************* AQUI

@@ -51,14 +51,23 @@
                             <li><a href="{{ route('login') }}">Login</a></li>
                             <li><a href="{{ route('register') }}">Register</a></li>
                         @else
-                            <li><a href="{{url('/acompanhantes')}}">Acompanhantes</a></li>
                             <li><a href="{{url('/bairros')}}">Bairros</a></li>
-                            <li><a href="{{url('/banners')}}">Banners</a></li>
-                            <li><a href="{{url('/carros')}}">Carros</a></li>
+                            <li><a href="{{url('/banners')}}">Banners</a></li> 
                             <li><a href="{{url('/escolas')}}">Escolas</a></li>
                             <li><a href="{{url('/icons')}}">Icons</a></li>
-                            <li><a href="{{url('/membros')}}">Membros</a></li>
-                            <li><a href="{{url('/noticias')}}">Notícias</a></li>
+                            <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" 
+                                    aria-expanded="false" aria-haspopup="true">
+                                            Gerenciar Membros<span class="caret"></span>
+                                        </a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="{{url('/acompanhantes')}}">Acompanhantes</a></li>
+                                    <li><a href="{{url('/carros')}}">Carros</a></li>
+                                    <li><a href="{{url('/membros')}}">Membros</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="{{url('/messages')}}" class="btn btn-warning">Mensagens</a></li>
+                            <li><a href="{{url('/noticias')}}" class="btn btn-success">Notícias</a></li>
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">
                                     {{ Auth::user()->name }} <span class="caret"></span>
